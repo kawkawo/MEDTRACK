@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" sizes="16x16" href="icon_web.ico" >
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Home page</title>
+</head>
+<body>
+   
+
+
+    <div class="wrapper">
+    <nav class="nav">
+        <div class="nav-logo">
+            <p>MEDTRACK</p>
+        </div>
+        <div class="nav-menu">
+        <ul>
+            <li><a href="principale.html" class="link active">Home</a></li>
+            <li><a href="services.html" class="link">Services</a></li>
+            <li><a href="About.html" class="link">About</a></li>
+        </ul>
+    </div>
+    <form action="login_page.php" method="post">
+    <div class="nav-button">
+        <button class="btn" id="loginBtn">Log In</button>
+        </div>
+    </form>
+        <div class="nav-menu-btn">
+            <box-icon name='menu'></box-icon>
+
+        </div>
+    
+    </nav>
+
+
+
+
+        <!-- ===== KEY FEATURES ===== -->
+        <section class="features">
+            <div class="feature-row">
+            <div class="feature-card">
+                <box-icon name='clipboard' type='solid' color="#1a936f"></box-icon>
+                <h3>Electronic Health Records</h3>
+                <p>Access patient histories instantly with our secure cloud system.</p>
+            </div>
+            <div class="feature-card">
+                <box-icon name='calendar' type='solid' color="#1a936f"></box-icon>
+                <h3>Appointment Scheduling</h3>
+                <p>Reduce no-shows with automated reminders and calendar sync.</p>
+            </div>
+        </div>
+            <div class="feature-card single-card">
+                <box-icon name='capsule' type='solid' color="#1a936f"></box-icon>
+                <h3>Clinical Analytics</h3>
+                <p>Track disease progression with interactive dashboards showing lab trends, symptom patterns, 
+                    and treatment outcomes. Visualize patient development through biomarkers and predictive analytics to inform clinical decisions.</p>
+            </div>
+        </section>
+
+        <!--     TESTIMONIAL    -->
+        <section class="testimonial">
+            <blockquote>
+                "MEDTRACK reduced our admin time by 40%, allowing more focus on patient care."
+                <cite>— Dr. Sarah Chen, Cardiology Specialist</cite>
+            </blockquote>
+        </section>
+    
+
+</div>
+
+    <script src="assets/script.js"></script>
+    
+</body>
+</html>

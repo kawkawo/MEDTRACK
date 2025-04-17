@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" sizes="16x16" href="icon_web.ico" >
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/styleserv.css">
+
+    <title>Our Services</title>
+</head>
+<body>
+
+    <div class="wrapper">
+    <nav class="nav">
+        <div class="nav-logo">
+            <p>MEDTRACK</p>
+        </div>
+        <div class="nav-menu">
+        <ul>
+            <li><a href="principale.html" class="link ">Home</a></li>
+            <li><a href="services.html" class="link active">Services</a></li>
+            <li><a href="About.html" class="link">About</a></li>
+        </ul>
+    </div>
+    <form action="login_page.php" method="post">
+        <div class="nav-button">
+            <button class="btn" id="loginBtn">Log In</button>
+            </div>
+        </form>
+        <div class="nav-menu-btn">
+            <box-icon name='menu'></box-icon>
+
+        </div>
+    
+    </nav>
+    
+    <!-- Your content -->
+
+<section class="service-detail">
+    <div class="service-card">
+        <h2><box-icon name='clipboard-pulse' type='solid'></box-icon> Comprehensive Patient Records</h2>
+        <ul>
+            <li>Real-time EHR (Electronic Health Records) with customizable templates</li>
+            <li>AI-powered trend analysis for chronic conditions (diabetes, hypertension)</li>
+            <li>Secure cross-clinic record sharing (HIPAA-compliant)</li>
+        </ul>
+    </div>
+
+    <div class="service-card">
+        <h2><box-icon name='calendar-check' type='solid'></box-icon> Smart Scheduling</h2>
+        <ul>
+            <li>Automated appointment reminders via SMS/email</li>
+            <li>Waitlist management for cancellations</li>
+            <li>Integration with Google/Outlook calendars</li>
+        </ul>
+    </div>
+</section>
+
+<section class="advanced-services">
+    <h2>Specialized Modules</h2>
+    <div class="tabs">
+        <!-- Interactive tabs for different specialties -->
+        <button class="tab-button active" data-tab="oncology">Oncology</button>
+        <button class="tab-button" data-tab="pediatrics">Pediatrics</button>
+    </div>
+    <div id="oncology" class="tab-content active">
+        <p>Chemotherapy tracking, tumor size visualization, and survival rate analytics.</p>
+    </div>
+</section>
+</body>
+</html>

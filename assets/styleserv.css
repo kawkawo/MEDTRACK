@@ -1,0 +1,38 @@
+.container{
+    background: rgb(39,39,39,0.4);
+}
+h2{
+    color: #1a936f;
+}
+.service-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(3px);
+    border-left: 4px solid #1a936f;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+.service-card h2 {
+    color: #1a936f;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.service-card li {
+    color: rgb(140, 141, 142);
+    margin: 10px 0;
+    list-style-type: circle;
+    padding-left: 10px;
+}
+
+/* Tabbed interface */
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: table-column;
+}
+.tab-content.active p{
+   color: rgb(235, 237, 240); ;
+}
