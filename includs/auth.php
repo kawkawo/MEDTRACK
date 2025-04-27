@@ -44,16 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     try {
         $stmt = $pdo->prepare("SELECT * FROM doctors WHERE email = :email");
         $stmt->execute(['email' => $email]);
-        $doctor = $stmt->fetch();
+        $doctor = $stmt->fetch(PDO::FETCH_OBJ);
+        
 
         if ($doctor && password_verify($password, $doctor->password)) {
-            $_SESSION['doctor_id'] = $doctor->id;
             $_SESSION['username'] = $doctor->username;
             $_SESSION['full_name'] = $doctor->full_name;
+            $_SESSION['doctor_id'] = $doctor->doctor_id;
             session_regenerate_id(true);
 
             unset($_SESSION['login_error'], $_SESSION['old_email']);
-            //header("Location: ../Platform/dashboard.php"); // Correct dashboard path
             header("Location: /PHPprog/MALADY/Platform/dashboard.php");
             exit();
         } else {

@@ -5,13 +5,15 @@ h2{
     color: #1a936f;
 }
 .service-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 228, 228, 0.0501);
     backdrop-filter: blur(3px);
     border-left: 4px solid #1a936f;
     padding: 30px;
     margin-bottom: 40px;
 }
-
+.service-card:hover{
+    transform: translateY(-10px);
+}
 .service-card h2 {
     color: #1a936f;
     margin-bottom: 20px;
@@ -20,7 +22,7 @@ h2{
     gap: 15px;
 }
 .service-card li {
-    color: rgb(140, 141, 142);
+    color: rgba(246, 250, 255, 0.9);
     margin: 10px 0;
     list-style-type: circle;
     padding-left: 10px;
