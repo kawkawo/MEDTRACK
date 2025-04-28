@@ -63,7 +63,99 @@ if ($action === 'add') {
         }
     }
 }
+// --- DELETE APPOINTMENT ---
+if ($action === 'delete' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && is_numeric($_POST['id'])) {
+    $appointment_id = $_POST['id'];
 
+    try {
+        $stmt = $pdo->prepare("DELETE FROM appointments WHERE id = ? AND doctor_id = ?");
+        $stmt->execute([$appointment_id, $doctor_id]);
+
+        if ($stmt->rowCount() > 0) {
+            $_SESSION['successMessage'] = "Appointment deleted successfully.";
+        } else {
+            $_SESSION['errorMessage'] = "Error: Appointment not found or you are not authorized to delete it.";
+        }
+    } catch (PDOException $e) {
+        $_SESSION['errorMessage'] = "Error deleting appointment: " . $e->getMessage();
+    }
+
+    header("Location: appointment.php");
+    exit();
+}
+
+// --- GET APPOINTMENT DATA FOR EDIT MODAL (AJAX) ---
+if ($action === 'get_appointment_data' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $appointment_id = $_GET['id'];
+
+    try {
+        $stmt = $pdo->prepare("SELECT id, appointment_date, status
+                               FROM appointments
+                               WHERE id = ? AND doctor_id = ?");
+        $stmt->execute([$appointment_id, $doctor_id]);
+        $appointmentData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+        echo json_encode($appointmentData);
+        exit();
+
+    } catch (PDOException $e) {
+        // Log the error for debugging
+        error_log("Error fetching appointment data: " . $e->getMessage());
+        http_response_code(500); // Internal Server Error
+        echo json_encode(['error' => 'Failed to fetch appointment data.']);
+        exit();
+    }
+}
+
+// --- UPDATE APPOINTMENT ---
+if ($action === 'update' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id']) && is_numeric($_POST['appointment_id'])) {
+    $appointment_id = $_POST['appointment_id'];
+    $appointment_date = $_POST['appointment_date'] ?? null;
+    $appointment_time = $_POST['appointment_time'] ?? null;
+    $status = $_POST['status'] ?? null;
+
+    // Validate input for date and status
+    $errors = [];
+    if (empty($appointment_date)) {
+        $errors[] = "Please select an appointment date.";
+    }
+    if (empty($appointment_time)) {
+        $errors[] = "Please select an appointment time.";
+    }
+    if (empty($status)) {
+        $errors[] = "Please select a status.";
+    }
+
+    if (empty($errors)) {
+        $appointment_datetime_str = $appointment_date . ' ' . $appointment_time . ':00';
+
+        try {
+            $stmt = $pdo->prepare("UPDATE appointments
+                                   SET appointment_date = ?,
+                                       status = ?
+                                   WHERE id = ? AND doctor_id = ?");
+            $stmt->execute([$appointment_datetime_str, $status, $appointment_id, $doctor_id]);
+
+            if ($stmt->rowCount() > 0) {
+                $_SESSION['successMessage'] = "Appointment updated successfully.";
+            } else {
+                $_SESSION['errorMessage'] = "Error: Could not update appointment or you are not authorized.";
+            }
+            header("Location: appointment.php");
+            exit();
+
+        } catch (PDOException $e) {
+            $_SESSION['errorMessage'] = "Error updating appointment: " . $e->getMessage();
+            header("Location: appointment.php"); // Redirect back to the main page on error
+            exit();
+        }
+    } else {
+        $_SESSION['errorMessage'] = "Please correct the following errors:<br>" . implode("<br>", $errors);
+        header("Location: appointment.php"); // Redirect back to the main page on validation errors
+        exit();
+    }
+}
 
 // Fetch the list of patients for the view
 function getPatientList($pdo, $doctor_id, $limit = null)
@@ -254,8 +346,8 @@ $today = date('Y-m-d');
                                         <td><?php echo htmlspecialchars(substr($appointment['date'], 0, 16)); ?></td>
                                         <td><?php echo htmlspecialchars($appointment['Status']); ?></td>
                                         <td>
-                                        <button class="button edit-button" data-id="<?php echo $appointment['ID']; ?>"onclick="editAppointment(<?= $appointment['ID'] ?>)>Edit</button>
-                                        <button class="button delete-button" data-id="<?php echo $appointment['ID']; ?>" onclick="deleteAppointment(<?= $appointment['ID'] ?>)>Delete</button>
+                                        <button class="button edit-button" data-id="<?php echo $appointment['ID'];?>" onclick="openEditModal(<?php echo $appointment['ID']; ?>)">Edit</button>
+                                        <button class="button delete-button" data-id="<?php echo $appointment['ID'];?>" onclick="openDeleteModal(<?php echo $appointment['ID']; ?>)">Delete</button>
                                         </td>
                                     </tr>
                             <?php endforeach;
@@ -304,6 +396,53 @@ $today = date('Y-m-d');
 
     </div>
     </main>
+    <div id="deleteModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeDeleteModal()">&times;</span>
+        <h3>Confirm Delete</h3>
+        <p>Are you sure you want to delete this appointment?</p>
+        <form action="appointment.php?action=delete" method="POST">
+            <input type="hidden" id="deleteAppointmentId" name="id" value="">
+            <div class="modal-buttons">
+                <button type="button" class="button secondary" onclick="closeDeleteModal()">Cancel</button>
+                <button type="submit" id="danger" class="button">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeEditModal()">&times;</span>
+        <h3>Edit Appointment</h3>
+        <form action="appointment.php?action=update" method="POST">
+            <input type="hidden" id="editAppointmentId" name="appointment_id" value="">
+
+            <div class="form-group">
+                <label for="edit_appointment_date">Appointment Date:</label>
+                <input type="date" id="edit_appointment_date" name="appointment_date" required>
+            </div>
+            <div class="form-group">
+                <label for="edit_appointment_time">Appointment Time:</label>
+                <input type="time" id="edit_appointment_time" name="appointment_time" required>
+            </div>
+            <div class="form-group">
+                <label for="edit_status">Status:</label>
+                <select id="edit_status" name="status" required>
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button type="button" class="button secondary" onclick="closeEditModal()">Cancel</button>
+                <button type="submit" class="button primary">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 </body>
 
 </html>

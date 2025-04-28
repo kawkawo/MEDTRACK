@@ -35,6 +35,7 @@
 .button {
     background-color: #329768; /* Same color as the container's accent */
     color: white;
+    text-decoration: none;
     padding: 10px 15px;
     margin-top: 3ch;
     border: none;
@@ -147,37 +148,6 @@
     min-height: 80px;
 }
 
-/* Specific styles from your provided CSS - Adjusted for better integration */
-/*.appointment-list-container {
-    position: fixed;
-    background-color: rgba(88, 124, 107, 0.304);
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    overflow-y: auto;
-    box-sizing: border-box;
-
-    width: 83vw;
-    top: 20px;
-    bottom: 0px;
-}*/
-
-/*.appointment-list-container h2 {
-    font-size: 1.8em;
-    margin-top: 0;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-}*/
-
-/*.appointment-list-container h3 {
-    font-size: medium;
-    position: relative;
-    top: 3ch;
-}*/
-
-/* Applying the fixed style to the main container if that's the intended layout */
 .container {
     position: fixed;
     background-color: rgba(88, 124, 107, 0.304);
@@ -248,4 +218,10 @@
     border-radius: 4px;
     box-sizing: border-box; /* Ensure padding doesn't affect width */
     font-size: 1em;
+}
+#danger{
+    background-color: #f44336cd;
+}
+#danger:hover{
+    background-color:#6f3a37cd ;
 }

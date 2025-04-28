@@ -244,3 +244,10 @@ VALUES
 (1, 38, '2025-04-23 21:24:14', 'Scheduled', NULL),
 (1, 39, '2025-04-23 21:26:41', 'Scheduled', NULL);
 
+ALTER TABLE appointments 
+DROP FOREIGN KEY appointments_ibfk_2;
+
+ALTER TABLE appointments 
+ADD CONSTRAINT appointments_ibfk_2 
+FOREIGN KEY (patient_id) REFERENCES patients(patient_id) 
+ON DELETE CASCADE;
