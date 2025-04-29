@@ -65,14 +65,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         redirectWithError("System temporarily unavailable. Try later.");
     }
 }
-
-// Logout handler
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-    if (!isset($_GET['csrf_token']) || !validateCsrfToken($_GET['csrf_token'])) {
-        redirectWithError("Invalid security token.");
-    }
+    // Verify CSRF token
+    if (isset($_GET['csrf_token']) && validateCsrfToken($_GET['csrf_token'])) {
+        // Unset all session variables
+        $_SESSION = [];
 
-    session_destroy();
-    header("Location: ../login_page.php"); // Correct logout path
-    exit();
+        // Destroy the session
+        session_destroy();
+
+        // Redirect to the homepage
+        header("Location: ../login_page.php"); // Adjust the path to your homepage
+        exit();
+    } else {
+        // Invalid CSRF token, handle the error (e.g., display a message)
+        $_SESSION['errorMessage'] = "Invalid security token.";
+        header("Location: dashboard.php"); // Or wherever you want to redirect on error
+        exit();
+    }
 }

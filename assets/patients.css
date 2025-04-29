@@ -46,10 +46,10 @@
 
 
 .patient-table {
-    width: auto; /* Make the table take up 100% of its parent's width */
-    table-layout: auto; /* Let the browser determine column widths based on content */
+    width: auto; 
+    table-layout: auto;
     position: relative;
-    /* top: 18.8ch; REMOVE THIS LINE */
+    
     width: 100%;
     border-collapse: collapse;
     margin-top: 200px;
@@ -531,6 +531,7 @@ textarea {
     background-color: #f8f8f888;
     border-radius: 4px;
     border: 1px solid #ddd;
+    z-index: 3;
 }
 
 .search-bar input[type="text"] {

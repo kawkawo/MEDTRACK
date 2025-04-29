@@ -251,3 +251,11 @@ ALTER TABLE appointments
 ADD CONSTRAINT appointments_ibfk_2 
 FOREIGN KEY (patient_id) REFERENCES patients(patient_id) 
 ON DELETE CASCADE;
+
+
+INSERT INTO `diagnoses` (`diagnosis_id`, `patient_id`, `doctor_id`, `disease_name`, `notes`, `diagnosis_date`) VALUES
+(1, 2, 1, 'Hypertension', 'Blood pressure readings are high. Recommend monitoring.', '2025-04-17 10:00:00'),
+(2, 3, 1, 'Anemia', 'Patient reports fatigue; blood test shows low hemoglobin.', '2025-04-18 11:00:00'),
+(3, 8, 1, 'Hypotension', 'Low blood pressure recorded.', '2025-04-16 10:15:00'),
+(4, 9, 1, 'Type 2 Diabetes', 'Elevated blood sugar levels. Needs further evaluation.', '2025-04-17 11:30:00'),
+(5, 20, 1, 'Iron Deficiency', 'Recommending iron supplements.', '2025-04-28 10:00:00');

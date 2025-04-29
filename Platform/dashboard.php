@@ -65,7 +65,7 @@ $todaysAppointmentCount = getTodaysAppointmentsCountForDoctor($pdo, $doctor_id);
                 <p id="vanishText">Welcome, <?php echo htmlspecialchars($doctor_name); ?>👩🏻‍⚕️👋</p>
                 <style>
     #vanishText {
-        transition: opacity 1s ease-in-out; /* Example fade-out over 1 second */
+        transition: opacity 1s ease-in-out; /* */
     }
 </style>
                 <script>
@@ -91,12 +91,12 @@ $todaysAppointmentCount = getTodaysAppointmentsCountForDoctor($pdo, $doctor_id);
                         <a href="appointment.php"><i class='bx bxs-calendar'></i> Appointments</a>
                     </li>
                     <li>
-                        <a href="#"><i class='bx bxs-file-blank'></i> Records</a>
+                        <a href="records.php"><i class='bx bxs-file-blank'></i> Records</a>
                         
                     </li>
                    
                     <li>
-                        <a href="auth.php?action=logout&csrf_token=<?= generateCsrfToken() ?>">
+                        <a href="../includs/auth.php?action=logout&csrf_token=<?= generateCsrfToken() ?>">
                             <i class='bx bx-log-out'></i> Logout
                         </a>
                     </li>

@@ -1,0 +1,171 @@
+
+.main-content{
+    position: fixed;
+    background-color: rgba(88, 124, 107, 0.304);
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
+   margin-left: 27.5ch;
+    width: 83vw;
+    top: 20px;
+    bottom: 0px;
+}
+.main-content h1{
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+
+}
+.button {
+    background-color: #329768; /* Same color as the container's accent */
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin-top: 3ch;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #5a8671;
+}
+select {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+.patient-selection {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #3e3c3c26;
+   
+    border-radius: 10px;
+}
+
+.patient-selection h2 {
+    margin-top: 0;
+    
+}
+
+.patient-records h3 {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.diagnoses-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.diagnoses-list li {
+    margin-bottom: 20px;
+    padding: 15px;
+    
+    border-radius: 15px;
+    background-color:  #3e3c3c26;
+}
+
+.treatments-list {
+    margin-top: 4ch;
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.treatments-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    color: #1b835d;
+    border-left: 2px solid #1b835d;
+    background-color: #f4faff;
+    border-radius: 3px;
+}
+#generate-record-form {
+    margin-bottom: 20px;
+    padding: 20px; /* Increased padding for better spacing */
+    background-color: #f9f9f9; /* Light background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px; /* Slightly more rounded corners */
+}
+
+#generate-record-form h2 {
+    color: #333; /* Darker heading text */
+    margin-top: 0;
+    margin-bottom: 20px; /* Space below the heading */
+    border-bottom: 2px solid #eee; /* Light border under heading */
+    padding-bottom: 10px;
+}
+
+#generate-record-form .form-group {
+    margin-bottom: 15px;
+}
+
+#generate-record-form label {
+    display: block; /* Make labels take full width */
+    margin-bottom: 5px;
+    color: #555; /* Slightly lighter label text */
+    font-weight: bold; /* Make labels stand out */
+}
+
+#generate-record-form input[type="text"],
+#generate-record-form input[type="date"],
+#generate-record-form select,
+#generate-record-form textarea {
+    width: calc(100% - 12px); /* Full width with padding adjustment */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Prevent padding from increasing width */
+    font-size: 1em;
+}
+
+#generate-record-form textarea {
+    resize: vertical; /* Allow vertical resizing of textarea */
+}
+
+#generate-record-form .treatment-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; /* Separator for treatment section */
+}
+
+#generate-record-form .treatment-section h3 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+#generate-record-form .button.primary {
+    background-color:#1b835d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+#generate-record-form .button.primary:hover {
+    background-color: #1c6b4e;
+}
