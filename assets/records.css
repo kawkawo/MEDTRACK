@@ -1,7 +1,7 @@
 
 .main-content{
     position: fixed;
-    background-color: rgba(88, 124, 107, 0.304);
+    background-color: rgba(85, 126, 107, 0.162);
     color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -9,7 +9,7 @@
     overflow-y: auto;
     box-sizing: border-box;
    margin-left: 27.5ch;
-    width: 83vw;
+    width: 81vw;
     top: 20px;
     bottom: 0px;
 }
@@ -21,6 +21,16 @@
     align-items: center;
 
 }
+.main-content::-webkit-scrollbar {
+    height: 6px; /* Adjust height as needed */
+    width: 20px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+    background-color: #28a15836; /* Scrollbar thumb color */
+    border-radius: 4px;
+}
+
 .button {
     background-color: #329768; /* Same color as the container's accent */
     color: white;
@@ -51,14 +61,14 @@ select {
   
   select:focus {
     outline: none;
-    border-color: #007bff; /* Highlight on focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #1c985c; 
+    box-shadow: 0 0 5px rgba(24, 155, 94, 0.5);
   }
 
 .patient-selection {
     margin-bottom: 20px;
     padding: 15px;
-    background-color: #3e3c3c26;
+    background-color: #27906d61;
    
     border-radius: 10px;
 }
@@ -72,6 +82,9 @@ select {
     margin-top: 10px;
     margin-bottom: 15px;
 }
+.patient-records h4{
+    size: 2;
+}
 
 .diagnoses-list {
     list-style-type: none;
@@ -81,7 +94,7 @@ select {
 .diagnoses-list li {
     margin-bottom: 20px;
     padding: 15px;
-    
+    color:#333;
     border-radius: 15px;
     background-color:  #3e3c3c26;
 }
@@ -169,3 +182,22 @@ select {
 #generate-record-form .button.primary:hover {
     background-color: #1c6b4e;
 }
+
+.out {
+    display: flex;
+    align-items: center;
+    color: #3dab85;
+    padding: 12px 15px;
+    text-decoration: none;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    margin-left: 2px;
+    transition: background-color 0.3s ease;
+}
+
+.out:hover,
+.out.active a {
+    background-color: rgba(13, 152, 99, 0.7);
+    color: #fff;
+}
+

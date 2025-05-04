@@ -1,7 +1,7 @@
 
  .patient-list-container {
     position: fixed;
-    background-color: rgba(88, 124, 107, 0.304);
+    background-color:rgba(85, 126, 107, 0.162);
     color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -10,7 +10,7 @@
     box-sizing: border-box;
     /* Include padding in width */
     /* Optional: Set max-width if needed */
-    width: 83vw;
+    width: 81.4vw;
     /* Control vertical positioning */
     top: 20px;
     bottom: 0px;
@@ -36,10 +36,11 @@
 }
 .patient-list-container::-webkit-scrollbar {
     height: 6px; /* Adjust height as needed */
+    width: 20px;
 }
 
 .patient-list-container::-webkit-scrollbar-thumb {
-    background-color: #ccc; /* Scrollbar thumb color */
+    background-color: #28a15836; /* Scrollbar thumb color */
     border-radius: 4px;
 }
 
@@ -160,10 +161,10 @@
 }
 
 .modal-content {
-    /* Existing properties */
-    width: 50%; /* Reduce from 80% */
-    max-width: 500px; /* Add maximum width constraint */
-    margin: 5% auto; /* Adjust vertical positioning */
+   
+    width: 50%; 
+    max-width: 500px; 
+    margin: 5% auto; 
     padding: 15px; /* Reduce internal spacing */
     
     /* Optional: Add height control */
@@ -344,18 +345,10 @@ textarea {
         margin: 10% auto;
     }
 }
-/*
-.patient-list-container h2{
-    position: fixed;
-}
-.patient-list-container .add-new-patient{
-    position: fixed;
-}*/
-
 /* Mobile */
 @media (max-width: 600px) {
     .sidebar {
-        display: none; /* Hide sidebar or replace with hamburger menu */
+        display: none; 
     }
 
     .patient-list-container {
@@ -523,7 +516,7 @@ textarea {
 
 
 .search-bar {
-    width: 79%;
+    width: 78%;
     position: fixed;
     top: 17ch;
     margin-bottom: 15px;
@@ -537,7 +530,7 @@ textarea {
 .search-bar input[type="text"] {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccccccbb;
+    border: 1px solid #09e33fbb;
     border-radius: 4px;
     box-sizing: border-box; /* Ensure padding doesn't affect width */
     font-size: 1em;

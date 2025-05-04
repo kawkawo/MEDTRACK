@@ -1,6 +1,13 @@
 <?php
 require_once __DIR__ . '/../includs/auth.php';
 require_once __DIR__ . '/DAOutilities.php'; // Include to use getPatientList function
+
+if (!isset($_SESSION['doctor_id'])) {
+    
+    header("Location: ../login_page.php");
+    exit();
+}
+
 $doctor_id = $_SESSION['doctor_id'];
 
 $patients = getPatientList($pdo, $doctor_id);
@@ -14,6 +21,7 @@ $patients = getPatientList($pdo, $doctor_id);
     <link rel="icon" sizes="16x16" href="../icon_web.ico">
     <title>MEDTRACK - Patient Records</title>
     <link href="../assets/dashboard.css" rel="stylesheet">
+    <link href="../assets/patients.css" rel="stylesheet">
 
     <link href="../assets/records.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -22,9 +30,8 @@ $patients = getPatientList($pdo, $doctor_id);
 <body>
     <div class="dashboard-container">
         <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>MEDTRACK</h2>
-                <p> </p>
+        <div class="sidebar-header">
+                <h1 id="logo" >MEDTRACK<h1>
             </div>
 
             <nav class="sidebar-menu">
@@ -41,9 +48,8 @@ $patients = getPatientList($pdo, $doctor_id);
                     <li class="active">
                         <a href="records.php"><i class='bx bxs-file-blank'></i> Records</a>
                     </li>
-                    <a href="../includs/auth.php?action=logout&csrf_token=<?= generateCsrfToken() ?>">
-                        <i class='bx bx-log-out'></i> Logout
-                    </a>
+                    <a  class="out" href="../includs/auth.php?action=logout&csrf_token=<?= generateCsrfToken() ?>">
+                        <i class='bx bx-log-out'></i> Logout </a>
                 </ul>
             </nav>
         </aside>

@@ -1,7 +1,11 @@
 <?php
 
 require_once __DIR__ . '/../includs/auth.php';     // Adjust path as needed
-
+if (!isset($_SESSION['doctor_id'])) {
+    
+    header("Location: ../login_page.php");// pour assurer que l'utilisateur passer premierment par le login
+    exit();
+}
 // Get doctor's ID from session
 $doctor_id = $_SESSION['doctor_id'];
 
@@ -253,9 +257,8 @@ $patients = getPatientList($pdo, $doctor_id);
 <body>
     <div class="dashboard-container">
         <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>MEDTRACK</h2>
-                <p> </p>
+        <div class="sidebar-header">
+                <h1 id="logo" >MEDTRACK<h1>
             </div>
 
             <nav class="sidebar-menu">
@@ -786,10 +789,19 @@ $patients = getPatientList($pdo, $doctor_id);
       renderTable(searchResults);
     });
   });
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('showPatientModal') === 'true') {
+        const modal = document.getElementById('addPatientModal');
+        if (modal) modal.style.display = 'block';
+        localStorage.removeItem('showPatientModal'); // Clean up
+    }
+});
 </script>
 
-
-        <script src="../assets/patient.js"></script>
+<script src="assets/patients.js"></script>
+       
 </body>
 
 

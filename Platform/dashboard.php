@@ -1,10 +1,25 @@
 <?php
-// Start session and check authentication
+
 require_once __DIR__ . '/../includs/auth.php';
 
 // Get doctor's information from session
 $doctor_id = $_SESSION['doctor_id'];
 $doctor_name = $_SESSION['full_name'];
+if (!isset($_SESSION['doctor_id'])) {
+
+    header("Location: ../login_page.php"); // pour assurer que l'utilisateur passer premierment par le login
+    exit();
+}
+
+
+
+// JE VEUX AJOUTER UNE PARTIE CONSACRE AU INFO PROPRE DE CHAQUE DOCTOR
+
+$stmt = $pdo->prepare("SELECT full_name, email, photo FROM doctors WHERE doctor_id = ?");
+$stmt->execute([$doctor_id]);
+$doctorInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
 
 try {
     // Total Patients
@@ -42,6 +57,20 @@ function getTodaysAppointmentsCountForDoctor($pdo, $doctor_id)
 
 $todaysAppointmentCount = getTodaysAppointmentsCountForDoctor($pdo, $doctor_id);
 
+// timer pour donner l'effect dynamique au page
+// Fetch today's appointments with their full datetime
+$todayStart = date('Y-m-d 00:00:00');
+$todayEnd = date('Y-m-d 23:59:59');
+
+$stmtAppointments = $pdo->prepare("SELECT appointment_date FROM appointments WHERE doctor_id = ? AND appointment_date BETWEEN ? AND ? ORDER BY appointment_date ASC LIMIT 1"); // Fetch the very next one
+$stmtAppointments->execute([$doctor_id, $todayStart, $todayEnd]);
+$nextAppointment = $stmtAppointments->fetch(PDO::FETCH_ASSOC);
+
+$nextAppointmentTime = null;
+if ($nextAppointment) {
+    $nextAppointmentTime = $nextAppointment['appointment_date'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,22 +90,7 @@ $todaysAppointmentCount = getTodaysAppointmentsCountForDoctor($pdo, $doctor_id);
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2>MEDTRACK</h2>
-                <p id="vanishText">Welcome, <?php echo htmlspecialchars($doctor_name); ?>👩🏻‍⚕️👋</p>
-                <style>
-    #vanishText {
-        transition: opacity 1s ease-in-out; /* */
-    }
-</style>
-                <script>
-  const vanishTextelement = document.getElementById('vanishText');
-    const delayInMilliseconds = 5000;
-
-    setTimeout(function() {
-        vanishTextelement.style.opacity = '0';
-    }, delayInMilliseconds);
-
-  </script>
+                <h1 id="logo" >MEDTRACK<h1>
             </div>
 
             <nav class="sidebar-menu">
@@ -92,9 +106,9 @@ $todaysAppointmentCount = getTodaysAppointmentsCountForDoctor($pdo, $doctor_id);
                     </li>
                     <li>
                         <a href="records.php"><i class='bx bxs-file-blank'></i> Records</a>
-                        
+
                     </li>
-                   
+
                     <li>
                         <a href="../includs/auth.php?action=logout&csrf_token=<?= generateCsrfToken() ?>">
                             <i class='bx bx-log-out'></i> Logout
@@ -108,13 +122,19 @@ $todaysAppointmentCount = getTodaysAppointmentsCountForDoctor($pdo, $doctor_id);
         <main class="main-content">
             <!-- Header -->
             <header class="dashboard-header">
+
+                <div class="doctor-profile">
+                    <img src="../<?php echo htmlspecialchars($doctorInfo['photo']); ?>" alt="Doctor Photo" style="width: 100px; border-radius: 50%;">
+                    <h3><?php echo htmlspecialchars($doctorInfo['full_name']); ?></h3>
+                    <p><?php echo htmlspecialchars($doctorInfo['email']); ?></p>
+                </div>
                 <h1>Dashboard Overview</h1>
                 <div class="header-info">
 
                     <span><?php echo date('l, F j, Y'); ?></span>
                 </div>
             </header>
-
+<section class="dash">
             <!-- Stats Cards -->
             <div class="stats-grid">
                 <div class="stat-card">
@@ -124,12 +144,20 @@ $todaysAppointmentCount = getTodaysAppointmentsCountForDoctor($pdo, $doctor_id);
                 </div>
 
                 <div class="stat-card">
-                    <i class='bx bxs-calendar'></i>
-                    <h3>Today's Appointments</h3>
-                    <p> <?php echo htmlspecialchars($todaysAppointmentCount); ?></p>
-                </div>
+                        <i class='bx bxs-calendar'></i>
+                        <h3>Today's Appointments</h3>
+                        <p> <?php echo htmlspecialchars($todaysAppointmentCount); ?></p>
+                        <div class="countdown-timer" id="next-appointment-timer">
+                            <?php if ($nextAppointmentTime): ?>
+                                <span>Next Appointment In:</span>
+                                <span id="timer"></span>
+                            <?php else: ?>
+                                <span>No appointments today.</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
 
-               
+
             </div>
 
             <!-- Recent Activity -->
@@ -144,7 +172,7 @@ $todaysAppointmentCount = getTodaysAppointmentsCountForDoctor($pdo, $doctor_id);
                             </div>
                             <div class="activity-meta">
                                 <span style="color: #fff;"><?= $patient['created_at'] ?></span>
-                                <a href="#" class="btn-small">View Record</a>
+
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -154,19 +182,54 @@ $todaysAppointmentCount = getTodaysAppointmentsCountForDoctor($pdo, $doctor_id);
 
             <!-- Quick Actions -->
             <div class="quick-actions">
-                <button onclick="window.location.href='Patients.php'" class="action-btn">
+                <button onclick="showAddPatientForm()" class="action-btn">
                     <i class='bx bxs-plus-circle'></i>
                     New Patient
                 </button>
-                <button href="#" class="action-btn">
+
+                <script>
+                    function showAddPatientForm() {
+                        localStorage.setItem('showPatientModal', 'true');
+                        window.location.href = 'Patients.php';
+                    }
+                </script>
+
+                <button onclick="window.location.href='Patients.php'" class="action-btn">
                     <i class='bx bxs-file'></i>
-                    Generate Report
+                    View all
                 </button>
             </div>
+</section>
         </main>
     </div>
 
-    <script src="../assets/dashboard.js"></script>
+    <script>
+        function updateCountdown() {
+            const nextAppointmentTime = '<?php echo $nextAppointmentTime; ?>'; // Get the time from PHP
+            const timerElement = document.getElementById('timer');
+
+            if (nextAppointmentTime) {
+                const targetTime = new Date(nextAppointmentTime).getTime();
+                const now = new Date().getTime();
+                const difference = targetTime - now;
+
+                if (difference > 0) {
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                    timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                } else {
+                    timerElement.textContent = "Appointment time!";
+                    // Optionally, refresh the page or update the appointment list
+                }
+            }
+        }
+
+        // Update the countdown every second
+        setInterval(updateCountdown, 1000);
+    </script>
 </body>
 
 </html>

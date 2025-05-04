@@ -9,9 +9,7 @@
 
 body {
     background: url("../images/doctor_space.png") no-repeat center center fixed;
-    /*background-size: cover; /* Changed to cover for better responsiveness 
-    background-position: center;
-    background-repeat: no-repeat;*/
+   
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -19,8 +17,18 @@ body {
 
 .dashboard-container {
     display: flex;
-    min-height: 100vh; /* Changed to 100vh to fill the viewport */
-    background: linear-gradient(  rgba(47, 180, 133, 0.142),transparent); /* Increased opacity for better readability */
+    min-height: 100vh; 
+    background: linear-gradient(  rgba(47, 180, 133, 0.142),transparent); 
+}
+
+.main-content::-webkit-scrollbar {
+    height: 6px; /* Adjust height as needed */
+    width: 20px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+    background-color: #28a15836; /* Scrollbar thumb color */
+    border-radius: 4px;
 }
 
 .sidebar {
@@ -36,36 +44,40 @@ body {
     top: 0;
     z-index: 10; /* Ensure it's above other content */
 }
-.sidebar-header {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: flex-start; /* Align text to the left */
-    gap: 0.5rem; /* Add spacing between elements */
-    padding: 1rem; /* Adjust padding if needed */
-    overflow: hidden; /* Prevent overflow */
-    padding: 1rem; 
-  }
-  
-  .sidebar-header h2 {
-    margin: 0; /* Remove default margin */
-    font-size: 1.9rem; /* Adjust size as needed */
-    line-height: 1.2;
+.sidebar-header #logo{
+    
     position: relative;
-    top: 5ch;
-    text-decoration: solid;
+    size: 2.5em;
+   padding-left: 2.7ch;
+    top: 7ch;
+    background: linear-gradient(to left, #238162c4, #a5aea3);
+    background-clip: text;
+    color: transparent;
+    
+
+  }
+  header{
+    
+    position: fixed;
     color: #ffff;
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    margin-left: 1pc;
+    top: 0;
+    width: 81%;
+
+    padding: 2em 10%;
+    display: flex;
+    align-items:center;
+    justify-content:space-between;
+    background-color: #238162c4;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
   }
   
   .sidebar-header p {
-    margin: 0; /* Remove default margin */
+    margin: 0; 
   font-size: 2rem;
   font-weight: 890;
   color: rgba(0,0,0,0.4);
-  padding-top: 7rem; /* Replaced margin-top with padding */
+  padding-top: 7rem; 
   font-size: medium;
     
   }
@@ -73,7 +85,7 @@ body {
   
 .sidebar-menu{
     margin-top: auto; /* Pushes menu to bottom */
-    padding-bottom: 6rem; /* Optional: Add space below menu */
+    padding-bottom: 6rem;
 }
 
 
@@ -107,36 +119,19 @@ body {
     color: #fff;
 }
 
+.dash{
+    position: relative;
+    margin-top: 450PX;
+}
 .main-content {
     flex-grow: 1;
     padding: 20px;
-    margin-left: 250px; /* Adjust margin to accommodate the fixed sidebar */
+    margin-left: 250px; 
 }
 
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #444;
-}
-
-.dashboard-header h1 {
-    color:  #423c3c88;
-    font-size: 24px;
-    margin: 0;
-    
-}
-
-.header-info span {
-    color: #423c3c88;
-    font-size: 24px;
-}
 
 .stats-grid {
     position: relative;
-    top: 5ch;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
@@ -144,7 +139,7 @@ body {
 }
 
 .stat-card {
-    background-color: rgba(88, 124, 107,0.294);
+    background-color: #23816258;
     color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -178,7 +173,7 @@ body {
    
     position: relative;
     top: 4ch;
-    background-color: rgba(88, 124, 107,0.294);
+    background-color:  #23816239;
     color: #fff;
     padding: 20px;
     border-radius: 8px;

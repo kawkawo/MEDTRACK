@@ -1,10 +1,10 @@
 <?php
 // Database credentials
-$host = 'localhost';      // MySQL server (usually 'localhost' in XAMPP/WAMP)
-$db   = 'medical_db';     // Your database name
-$user = 'root';           // Default MySQL username in XAMPP/WAMP
-$pass = '';               // Default password (empty in XAMPP/WAMP)
-$charset = 'utf8mb4';     // Supports special characters/emojis
+$host = 'localhost';
+$db   = 'medical_db';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
 
 // Data Source Name (DSN) for PDO
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

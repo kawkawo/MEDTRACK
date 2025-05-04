@@ -11,11 +11,11 @@ def get_connection():
         password="",
         database="medical_db"
     )
-@app.get("/atients")
+@app.get("/patients")
 def get_patients():
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT patient_id, first_name FROM patients")
+    cursor.execute("SELECT * FROM patients")
     rows = cursor.fetchall()
     col_names = [desc[0] for desc in cursor.description]
     conn.close()
